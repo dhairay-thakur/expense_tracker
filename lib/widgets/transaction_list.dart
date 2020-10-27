@@ -23,7 +23,7 @@ class TransactionList extends StatelessWidget {
                   child: Text(
                     "₹${transactions[index].amount.toStringAsFixed(2)}",
                     style: TextStyle(
-                      color: Color(0xff0081a7),
+                      color: Theme.of(context).primaryColorDark,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -34,7 +34,7 @@ class TransactionList extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Color(0xff0081a7),
+                      color: Theme.of(context).primaryColorDark,
                       width: 2,
                     ),
                   ),

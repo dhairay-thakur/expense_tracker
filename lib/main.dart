@@ -17,7 +17,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Expense Tracker",
+      title: "Personal Expenses",
+      theme: ThemeData(
+        primarySwatch: Colors.cyan,
+        accentColor: Colors.amber,
+        fontFamily: 'OpenSans',
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              )),
+        ),
+      ),
       home: MyHomePage(),
     );
   }
@@ -87,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   "chart!!",
                   textAlign: TextAlign.center,
                 ),
-                color: Colors.blue,
+                color: Colors.deepOrange[900],
               ),
             ),
             TransactionList(_userTransactions),
