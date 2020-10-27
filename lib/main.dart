@@ -1,5 +1,6 @@
-import 'package:expense_tracker/widgets/transaction_list.dart';
-
+import 'package:expense_tracker/widgets/chart.dart';
+import './widgets/transaction_list.dart';
+import './widgets/chart.dart';
 import 'package:flutter/material.dart';
 import './widgets/new_transaction.dart';
 import 'models/transaction.dart';
@@ -55,6 +56,16 @@ final List<Transaction> _userTransactions = [
   // ),
 ];
 
+List<Transaction> get _recentTransactions {
+  return _userTransactions.where((tx) {
+    return tx.date.isAfter(
+      DateTime.now().subtract(
+        Duration(days: 7),
+      ),
+    );
+  }).toList();
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
@@ -92,16 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              width: double.infinity,
-              child: Card(
-                child: Text(
-                  "chart!!",
-                  textAlign: TextAlign.center,
-                ),
-                color: Colors.deepOrange[900],
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_userTransactions),
           ],
         ),
