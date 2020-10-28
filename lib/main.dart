@@ -36,24 +36,19 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
 final List<Transaction> _userTransactions = [
-  // Transaction(
-  //   id: "t1",
-  //   amount: 250,
-  //   date: DateTime.now(),
-  //   title: "sex",
-  // ),
-  // Transaction(
-  //   id: "t2",
-  //   amount: 350,
-  //   date: DateTime.now(),
-  //   title: "sex again",
-  // ),
+  Transaction(
+    id: "t1",
+    amount: 250,
+    date: DateTime.now(),
+    title: "test",
+  ),
+  Transaction(
+    id: "t2",
+    amount: 1300,
+    date: DateTime.now(),
+    title: "had sex",
+  ),
 ];
 
 List<Transaction> get _recentTransactions {
@@ -66,6 +61,11 @@ List<Transaction> get _recentTransactions {
   }).toList();
 }
 
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
@@ -75,16 +75,22 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  void _addNewTransaction(String newTitle, double newAmount) {
+  void _addNewTransaction(String newTitle, double newAmount, DateTime newDate) {
     final newTx = Transaction(
       title: newTitle,
       amount: newAmount,
-      date: DateTime.now(),
+      date: newDate,
       id: DateTime.now().toString(),
     );
 
     setState(() {
       _userTransactions.add(newTx);
+    });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((element) => element.id == id);
     });
   }
 
@@ -104,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Chart(_recentTransactions),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions,_deleteTransaction),
           ],
         ),
       ),

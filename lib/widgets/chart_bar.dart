@@ -10,14 +10,19 @@ class ChartBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FittedBox(
-          child: Text("₹${expenditure.toStringAsFixed(0)}"),
+        Container(
+          height: 20,
+          child: FittedBox(
+            child: expenditure < 1000
+                ? Text("₹${expenditure.toStringAsFixed(0)}")
+                : Text("₹${(expenditure / 1000.00).toStringAsFixed(2)} K"),
+          ),
         ),
         SizedBox(
           height: 4,
         ),
         Container(
-          height: 60,
+          height: 80,
           width: 10,
           child: Stack(
             children: [
@@ -36,9 +41,12 @@ class ChartBar extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.grey[350],
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10)),
+                    borderRadius: percentage == 0
+                        ? BorderRadius.circular(10)
+                        : BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
                   ),
                 ),
               ),
