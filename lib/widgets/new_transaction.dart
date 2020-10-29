@@ -19,7 +19,7 @@ class _NewTransactionState extends State<NewTransaction> {
     if (_amountController.text.isEmpty) return;
     final newTitle = _titleController.text;
     final newAmount = double.parse(_amountController.text);
-    if (newTitle.isEmpty || newAmount <= 0 || _selectedDate == null) return;
+    if (newTitle.isEmpty || newAmount <= 0 ) return;
 
     //"widget." is used to access properties of widget to which the state class belongs
     widget.addTx(
@@ -70,7 +70,7 @@ class _NewTransactionState extends State<NewTransaction> {
                               firstDate: DateTime(2020),
                               lastDate: DateTime.now())
                           .then((pickedDate) {
-                        if (pickedDate == null) return;
+                        
                         setState(() {
                           _selectedDate = pickedDate;
                         });
@@ -78,7 +78,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     },
                     child: Text(
                       _selectedDate == null
-                          ? "Choose a Date"
+                          ? DateFormat.yMMMd().format(DateTime.now())
                           : DateFormat.yMMMd().format(_selectedDate),
                       style: TextStyle(
                         color: Theme.of(context).primaryColorDark,
