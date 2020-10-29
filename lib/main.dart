@@ -95,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
         context: ctx,
+        isScrollControlled: true,
         builder: (_) {
           return NewTransaction(_addNewTransaction);
         });
@@ -121,8 +122,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
     final _isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+        mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
       title: Text("Expense Tracker"),
@@ -137,9 +140,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // since it is common in both prtrt and lndscp mode
     final txListWidget = Container(
       child: TransactionList(_userTransactions, _deleteTransaction),
-      height: (MediaQuery.of(context).size.height -
+      height: (mediaQuery.size.height -
               appBar.preferredSize.height -
-              MediaQuery.of(context).padding.top) *
+              mediaQuery.padding.top) *
           0.74,
     );
 
@@ -165,9 +168,9 @@ class _MyHomePageState extends State<MyHomePage> {
             if (!_isLandscape)
               Container(
                 child: Chart(_recentTransactions),
-                height: (MediaQuery.of(context).size.height -
+                height: (mediaQuery.size.height -
                         appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
+                        mediaQuery.padding.top) *
                     0.26,
               ),
             if (!_isLandscape) txListWidget,
@@ -175,9 +178,9 @@ class _MyHomePageState extends State<MyHomePage> {
               _showChart
                   ? Container(
                       child: Chart(_recentTransactions),
-                      height: (MediaQuery.of(context).size.height -
+                      height: (mediaQuery.size.height -
                               appBar.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
+                              mediaQuery.padding.top) *
                           0.65,
                     )
                   : txListWidget,
